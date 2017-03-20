@@ -10,7 +10,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent page = (Parent)FXMLLoader.load(Main.class.getResource("MainBoard.fxml"));
+			Parent page = (Parent)FXMLLoader.load(Main.class.getResource("FrontPage.fxml"));
 			Scene scene = new Scene(page);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setResizable(false);

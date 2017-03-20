@@ -1,38 +1,28 @@
 package sudoku;
 
-public class BoardSolver implements BoardChecking {
+public class BoardSolver extends BoardChecker {
 	
-	public boolean[] res = new boolean[3];
+	Square[][] board = null;
 	
-	@Override
-	public boolean[] checkBoard(Square[][] board) {
-		// TODO Auto-generated method stub
-		return res;
-	}
-
-	@Override
-	public boolean checkRows(Square board[][]) {
-		// TODO Auto-generated method stub
-		return true;
+	public BoardSolver(Square[][] inputBoard) throws NullPointerException
+	{
+		
+		if(inputBoard!=null)
+		{
+			this.board = inputBoard;
+		}
+		else
+		{
+			throw new NullPointerException("Input board is nullified?");
+		}
+		
+		
+		
 	}
 	
-	@Override
-	public boolean checkColumns(Square board[][]){
-		return true;
+	private void solveBoard(){
+		
 	}
-
-	@Override
-	public boolean checkSquares(Square board[][]) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean checkZeros(Square[][] board) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 
 
 }

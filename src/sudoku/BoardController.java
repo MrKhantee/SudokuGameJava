@@ -11,9 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -33,13 +31,15 @@ public class BoardController implements Initializable {
 	BoardButton submitButton = null;
 	BoardButton resetButton  = null;
 	BoardButton checkButton  = null;
+	BoardButton solveButton  = null;
 	
 	//PANE SIZE
 	final double PANE_WIDTH  = 1024;
 	final double PANE_HEIGHT = 768;
 	
-	final static int BOARD_WIDE  = 9;
-	final static int BOARD_TALL = 9;
+	final static int BOARD_WIDE   = 9;
+	final static int BOARD_TALL   = 9;
+	final static int SIZE_SQUARE  = 3;
 	private final double BOARD_HEIGHT = (double)(5D/7D)*PANE_HEIGHT;
 	private final double BOARD_WIDTH  = (double)(5D/7D)*PANE_WIDTH;
 	
@@ -50,25 +50,29 @@ public class BoardController implements Initializable {
 	//Is the board valid?
 	boolean isBoardValid = false;	
 	
+	private String filename = "board1.txt";
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		try {
-			rf = new ReadFile("ValidBoard.txt");
+		try 
+		{
+			rf = new ReadFile(filename);
 			this.sudokuBoard = rf.getBoard();
-		} catch (FileNotFoundException e) {
+			rf = null; 	//Reset file pointer.
+		} catch (FileNotFoundException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NoMoreContentException e) {
+		} catch (NoMoreContentException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		initialiseGridPane(BOARD_WIDTH, BOARD_HEIGHT);
+		addPanes();
 		initialiseBoard();
-		addButtons();
-		
-		
+		addButtons();			
 	}
 	
 	private void initialiseGridPane(double width, double height){
@@ -92,13 +96,14 @@ public class BoardController implements Initializable {
 	}
 	
 	private void initialiseBoard(){
-		
 		for(int i = 0; i <BOARD_WIDE ; i++){
 			for(int j = 0; j < BOARD_TALL; j++){
 				this.gridPane.add(sudokuBoard[i][j], j, i);
 			}
 		}
-		
+	}
+	
+	private void addPanes(){
 		//Add side-pane onto board.
 		sidePane = new SidePane(PANE_WIDTH-BOARD_WIDTH-10, PANE_HEIGHT-4, BOARD_WIDTH+18, 4);
 		mainPane.getChildren().add(sidePane);
@@ -114,8 +119,9 @@ public class BoardController implements Initializable {
 		submitButton = new BoardButton(100, 20, 620, 165, "Submit");
 		resetButton  = new BoardButton(100, 20, 500, 165, "Reset");
 		checkButton  = new BoardButton(100, 20, 380, 165, "Check");
+		solveButton  = new BoardButton(100, 20, 260, 165, "Solve");
 		
-		bottomPane.getChildren().addAll(resetButton, submitButton, checkButton);
+		bottomPane.getChildren().addAll(resetButton, submitButton, checkButton, solveButton);
 		
 		//Add Event Handlers for buttons.
 		submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -126,6 +132,7 @@ public class BoardController implements Initializable {
 		    }
 		});
 		
+		//Reset button event handler.
 		resetButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	
@@ -138,7 +145,17 @@ public class BoardController implements Initializable {
 		    	alert.setContentText(s);
 		    	Optional<ButtonType> result = alert.showAndWait();
 		    	if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-		    		//Carry out reset operation.
+		    		try {
+		    			rf = new ReadFile(filename);
+						sudokuBoard = rf.getBoard();
+						initialiseBoard();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						System.err.println("File Not Found");
+					} catch (NoMoreContentException e1) {
+						System.err.println("There inputted board is not 9x9.");
+					}
+		    		
 		    	}
 		    }
 		});
@@ -153,20 +170,28 @@ public class BoardController implements Initializable {
 		    	
 		    	isBoardValid = res[0] & res[1] & res[2];
 		    	
-		    	if(isBoardValid){
+		    	if(isBoardValid)
+		    	{
+		    		bottomPane.setText("");
 		    		bottomPane.setText("Check Complete: Board Is Valid \n	Submit your solution!");
 		    	}
-		    	else{
+		    	else
+		    	{
+		    		bottomPane.setText("");
 		    		bottomPane.setText("Check Complete: Board is Invalid");
 		    	}
 		    }
 		});
 		
-	}
-	
-	
-	
+		//Solve button action listener.
+		solveButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+				bottomPane.setText("Attempting to Solve Board!!");
+				
+				//BoardSolver bs = new BoardSolver(sudokuBoard);
+				 
+		    }
+		});
 		
-	
-	
+	}
 }
