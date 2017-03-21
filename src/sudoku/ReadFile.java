@@ -16,13 +16,12 @@ public class ReadFile {
 		try {
 			String filePath = new File("").getAbsolutePath();
 			filePath = filePath.concat("/src/sudoku/boards/");
-			
-			scanner = new Scanner(new FileReader(filePath.concat(pathname)));
-			scanner.close();
+			scanner = new Scanner(new FileReader(filePath.concat(pathname + ".txt")));
 			
 			for(int i = 0; i < BoardController.BOARD_WIDE; i++){
 				for(int j = 0; j < BoardController.BOARD_TALL; j++){
 					if(!scanner.hasNextInt()){
+						System.exit(0);
 						throw new NoMoreContentException();
 					}
 					sudokuBoard[i][j] = new Square(20,20);

@@ -50,14 +50,14 @@ public class BoardController implements Initializable {
 	//Is the board valid?
 	boolean isBoardValid = false;	
 	
-	private String filename = "board1.txt";
+	//private String filename = "board1.txt";
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
 		try 
 		{
-			rf = new ReadFile(filename);
+			rf = new ReadFile(FrontPageController.filename);
 			this.sudokuBoard = rf.getBoard();
 			rf = null; 	//Reset file pointer.
 		} catch (FileNotFoundException e) 
@@ -147,7 +147,7 @@ public class BoardController implements Initializable {
 		    	Optional<ButtonType> result = alert.showAndWait();
 		    	if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
 		    		try {
-		    			rf = new ReadFile(filename);
+		    			rf = new ReadFile(FrontPageController.filename);
 						sudokuBoard = rf.getBoard();
 						initialiseBoard();
 					} catch (FileNotFoundException e1) {

@@ -1,38 +1,47 @@
 package sudoku;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class FrontPageController implements Initializable {
 
 	@FXML AnchorPane frontPane;
 	
-	SidePane backingPane 	= null;
-	SidePane topPane     	= null;
-	SidePane bottomPane 	= null;
+	private SidePane backingPane 	= null;
+	private SidePane topPane     	= null;
+	private SidePane bottomPane 	= null;
 	
-	Label title = null;
-	Label textDesc = null;
+	private Label title = null;
+	private Label textDesc = null;
 	
-	TextArea boardName = null;
+	private TextArea boardName = null;
 	
-	MainButton easyButton    = null;
-	MainButton mediumButton  = null;
-	MainButton hardButton    = null;
-	BoardButton submitButton  = null;
+	private MainButton easyButton    = null;
+	private MainButton mediumButton  = null;
+	private MainButton hardButton    = null;
+	private BoardButton submitButton  = null;
+	
+	public static String filename = null;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
 		initialisePanes();
 		addButtons();
 	}
@@ -57,10 +66,17 @@ public class FrontPageController implements Initializable {
 	
 	private void addButtons(){
 		
+		//Create a button for each action.
 		easyButton    = new MainButton(300, 100, 30, 30, "Easy");
 		mediumButton  = new MainButton(300, 100, 30, 160, "Medium");
 		hardButton    = new MainButton(300, 100, 30, 290, "Hard");
 		submitButton  = new BoardButton(100, 48, 550, 60, "Select");
+		
+		//Set Event Handlers for each of the buttons.
+		easyButton.setOnAction(btnEasyPressed);
+		mediumButton.setOnAction(btnMediumPressed);
+		hardButton.setOnAction(btnHardPressed);
+		submitButton.setOnAction(btnSubmitPressed);
 		
 		textDesc      = new Label(" Board Name: "); 
 		textDesc.setStyle("-fx-font-size:20px;-fx-border-width:3px;-fx-border-color:white;");
@@ -80,7 +96,68 @@ public class FrontPageController implements Initializable {
 		bottomPane.getChildren().addAll(submitButton, textDesc, boardName);
 	}
 	
+	/*-------------------------------EVENT HANDLERS------------------------------------*/
 	
+	/*
+	 * Event Handler for Easy, Medium 
+	 * and Hard Buttons pressed
+	 * 
+	 */
+	EventHandler <ActionEvent> btnEasyPressed = 
+	new EventHandler <ActionEvent>(){
+		@Override
+		public void handle(ActionEvent arg0) {
+			System.out.println("EASY BUTTON PRESSED");
+		}
+	};
 	
+	EventHandler <ActionEvent> btnMediumPressed = 
+	new EventHandler <ActionEvent>(){
+		@Override
+		public void handle(ActionEvent arg0) {
+			System.out.println("MEDIUM BUTTON PRESSED");
+		}
+	};
 	
+	EventHandler <ActionEvent> btnHardPressed = 
+	new EventHandler <ActionEvent>(){
+		@Override
+		public void handle(ActionEvent arg0) {
+			System.out.println("HARD BUTTON PRESSED");
+		}
+	};
+	
+	EventHandler <ActionEvent> btnSubmitPressed = 
+	new EventHandler <ActionEvent>(){
+		@Override
+		public void handle(ActionEvent arg0) {
+			
+			if(!boardName.getText().equals("") && boardName.getText()!=null)
+			{
+				filename = boardName.getText();
+				System.err.println("Filename Set as " + filename);
+				
+				Parent page;
+				Stage primaryStage = (Stage) submitButton.getScene().getWindow();
+				try {
+					page = (Parent)FXMLLoader.load(Main.class.getResource("MainBoard.fxml"));
+					Scene scene = new Scene(page);
+					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+					primaryStage.setResizable(false);
+					primaryStage.setScene(scene);
+					primaryStage.show();
+				
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+			}
+		
+		}
+	};
+	
+
 }
