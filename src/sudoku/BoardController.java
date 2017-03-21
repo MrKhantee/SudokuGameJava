@@ -53,7 +53,8 @@ public class BoardController implements Initializable {
 	private String filename = "board1.txt";
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources) 
+	{
 		try 
 		{
 			rf = new ReadFile(filename);

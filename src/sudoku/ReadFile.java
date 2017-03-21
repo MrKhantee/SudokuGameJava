@@ -11,14 +11,14 @@ public class ReadFile {
 	
 	private Square[][] sudokuBoard = new Square[BoardController.BOARD_TALL][BoardController.BOARD_WIDE];
 	
-	
 	public ReadFile(String pathname) throws NoMoreContentException, FileNotFoundException{
 		
 		try {
 			String filePath = new File("").getAbsolutePath();
 			filePath = filePath.concat("/src/sudoku/boards/");
-
+			
 			scanner = new Scanner(new FileReader(filePath.concat(pathname)));
+			scanner.close();
 			
 			for(int i = 0; i < BoardController.BOARD_WIDE; i++){
 				for(int j = 0; j < BoardController.BOARD_TALL; j++){
@@ -32,9 +32,7 @@ public class ReadFile {
 		} catch (FileNotFoundException e) {
 			System.err.println("Cannot find file, please verify directory");
 		}
-			
 	}
-
 	
 	public Square[][] getBoard(){
 		return sudokuBoard;
