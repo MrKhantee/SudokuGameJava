@@ -104,10 +104,14 @@ public class FrontPageController implements Initializable {
 	 * 
 	 */
 	EventHandler <ActionEvent> btnEasyPressed = 
-	new EventHandler <ActionEvent>(){
+	new EventHandler <ActionEvent>()
+	{
 		@Override
-		public void handle(ActionEvent arg0) {
-			System.out.println("EASY BUTTON PRESSED");
+		public void handle(ActionEvent arg0) 
+		{
+			filename = "easy1";
+			System.out.println("Filename Set as: " + filename + ".txt");
+			changeStage(filename);
 		}
 	};
 	
@@ -115,7 +119,8 @@ public class FrontPageController implements Initializable {
 	new EventHandler <ActionEvent>(){
 		@Override
 		public void handle(ActionEvent arg0) {
-			System.out.println("MEDIUM BUTTON PRESSED");
+			filename = "medium1";
+			changeStage(filename);
 		}
 	};
 	
@@ -123,41 +128,41 @@ public class FrontPageController implements Initializable {
 	new EventHandler <ActionEvent>(){
 		@Override
 		public void handle(ActionEvent arg0) {
-			System.out.println("HARD BUTTON PRESSED");
+			filename = "hard1";
+			changeStage(filename);
 		}
 	};
 	
 	EventHandler <ActionEvent> btnSubmitPressed = 
 	new EventHandler <ActionEvent>(){
 		@Override
-		public void handle(ActionEvent arg0) {
-			
+		public void handle(ActionEvent arg0) 
+		{	
 			if(!boardName.getText().equals("") && boardName.getText()!=null)
 			{
 				filename = boardName.getText();
-				System.err.println("Filename Set as " + filename);
-				
-				Parent page;
-				Stage primaryStage = (Stage) submitButton.getScene().getWindow();
-				try {
-					page = (Parent)FXMLLoader.load(Main.class.getResource("MainBoard.fxml"));
-					Scene scene = new Scene(page);
-					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-					primaryStage.setResizable(false);
-					primaryStage.setScene(scene);
-					primaryStage.show();
-				
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
-				
+				changeStage(filename);
 			}
-		
 		}
 	};
 	
+	
+	private void changeStage(String filename){
+		System.out.println("Filename Set as " + filename);
+		Parent page;
+		Stage primaryStage = (Stage) submitButton.getScene().getWindow();
+		try {
+			page = (Parent)FXMLLoader.load(Main.class.getResource("MainBoard.fxml"));
+			Scene scene = new Scene(page);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setResizable(false);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

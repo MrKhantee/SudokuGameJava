@@ -11,10 +11,12 @@ public class Square extends TextArea{
 	private int squareNum;
 	
 	//Stores possible integers that can be put into the board.
-	ArrayList<Integer> possibleNums = null;
+	private ArrayList<Integer> possibleNums = null;
+	
+	private boolean fixedStatus = false;
 	
 	//The List Iterator for the arrayList.
-	ListIterator<Integer> listIterator = null;
+	private ListIterator<Integer> listIterator = null;
 	
 	public Square(double width, double height){
 		this.setPrefHeight(height);
@@ -22,6 +24,7 @@ public class Square extends TextArea{
 		this.setMinWidth(width);
 		this.setPrefWidth(width);
 		this.setWrapText(false);
+		
 		
 		this.setTextFormatter(new TextFormatter<String>(
 				change -> change.getControlNewText().length()
@@ -37,14 +40,32 @@ public class Square extends TextArea{
 					+ "-fx-text-alignment:center");
 		
 		
+		//Add numbers 0-9 to the list and assign
+		//ListIterator.
 		this.possibleNums = new ArrayList<Integer>();
+		possibleNums.add(1);	
+		possibleNums.add(2);
+		possibleNums.add(3);
+		possibleNums.add(4);
+		possibleNums.add(5);
+		possibleNums.add(6);
+		possibleNums.add(7);
+		possibleNums.add(8);
+		possibleNums.add(9);
+		this.listIterator = possibleNums.listIterator();
 		
-		resetList();
-	
+		
 	}
 	
-	public int getElementFromList(int index){
-		return this.possibleNums.get(index);
+	public int getNextElement(){
+		if(this.listIterator.hasNext())
+		{	
+			return listIterator.nextIndex();
+		}
+		else{	
+			resetList();
+			return 0;
+		}
 	}
 	
 	//Initialise the list for this Square.
@@ -67,9 +88,7 @@ public class Square extends TextArea{
 			this.setText("");
 		}
 	}
-	
 
-	
 	//Retrieve number held in current square.
 	public int getNum(){
 		if(!this.getText().equals("")){
@@ -79,6 +98,16 @@ public class Square extends TextArea{
 		else{
 			return 0;
 		}
+	}
+	
+	//Check if current square is fixed or not.
+	public boolean getFixedStatus(){
+		return this.fixedStatus;
+	}
+	
+	public void setFixedStatus(boolean val){
+		this.fixedStatus = val;
+		this.setEditable(!val);
 	}
 	
 }
