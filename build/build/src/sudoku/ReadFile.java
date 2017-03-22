@@ -1,10 +1,8 @@
 package sudoku;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import javafx.scene.control.Alert;
@@ -19,8 +17,15 @@ public class ReadFile {
 	public ReadFile(String pathname) throws NoMoreContentException, FileNotFoundException{
 		
 		try {
-			InputStreamReader inputStream = new InputStreamReader(getClass().getResourceAsStream(""));
-			BufferedReader txtReader = new BufferedReader(inputStream);
+			String filePath = new File("").getAbsolutePath();
+			filePath = filePath.concat("/src/sudoku/boards/");
+			scanner = new Scanner(new FileReader(filePath.concat(pathname + ".txt")));
+			
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Information Dialog");
+			alert.setHeaderText("Look, an Information Dialog");
+			alert.setContentText(filePath.concat(pathname + ".txt"));
+			alert.showAndWait();
 			
 			for(int i = 0; i < BoardController.BOARD_WIDE; i++){
 				for(int j = 0; j < BoardController.BOARD_TALL; j++){
