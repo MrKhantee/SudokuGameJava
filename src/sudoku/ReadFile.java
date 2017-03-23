@@ -36,7 +36,13 @@ public class ReadFile {
 					
 					tmp = txtReader.readLine();
 					
-					lineHolder = tmp.split(" ");
+					if(tmp.length() > 9){
+						lineHolder = tmp.split(" ");
+					}
+					else{
+						lineHolder = tmp.split("");
+					}
+					
 					
 					for(int j =0; j < lineHolder.length;j++){
 						sudokuBoard[i][j] = new Square(20,20);
