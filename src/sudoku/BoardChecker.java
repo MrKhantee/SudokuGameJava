@@ -32,7 +32,7 @@ public class BoardChecker{
 	 * @param
 	 * @return
 	 */
-	BoardChecker(){
+	public BoardChecker(){
 		//No body here.
 	}
 	

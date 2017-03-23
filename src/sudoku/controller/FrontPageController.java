@@ -1,3 +1,13 @@
+/**
+ * 
+ * class: FrontPageController.java
+ * 
+ * @author Ravindra Bhadti
+ * 
+ * @since 23-03-2017
+ * 
+ */
+
 package sudoku.controller;
 
 import java.io.IOException;
@@ -21,24 +31,41 @@ import sudoku.gui.BoardButton;
 import sudoku.gui.MainButton;
 import sudoku.gui.SidePane;
 
-public class FrontPageController implements Initializable {
 
+/**
+ * This class acts a controller class for 'FrontPage.fxml'. It
+ * dictates the actions that occur on this page and sets up the 
+ * GUI components on this page.
+ * 
+ * @see FrontPageController.fxml
+ * 
+ * @version 1.0
+ *
+ */
+public class FrontPageController implements Initializable {
+	
+	/* Injectable Fields for FXML Document */
 	@FXML AnchorPane frontPane;
 	
+	/* Panes for the content. These will be placed on the stage. */
 	private SidePane backingPane 	= null;
 	private SidePane topPane     	= null;
 	private SidePane bottomPane 	= null;
 	
+	/* Labels for the title and text description. */
 	private Label title = null;
 	private Label textDesc = null;
 	
+	/* Text-area for user to specify particular board games. */
 	private TextArea boardName = null;
 	
+	/* Buttons to be placed on the GUI (Stage) */
 	private MainButton easyButton    = null;
 	private MainButton mediumButton  = null;
 	private MainButton hardButton    = null;
 	private BoardButton submitButton  = null;
 	
+	/* Filename of the text-file to read from. */
 	public static String filename = null;
 	
 	@Override
