@@ -49,8 +49,7 @@ public class ReadFile {
 						sudokuBoard[i][j].setNum(Integer.parseInt(lineHolder[j]));
 						if(sudokuBoard[i][j].getNum()!=0){
 							sudokuBoard[i][j].setFixedStatus(true);
-						}
-						
+						}	
 					}
 				}
 			}
@@ -68,6 +67,8 @@ public class ReadFile {
 		}
 		
 	}
+	
+	
 	
 	public Square[][] getBoard(){
 		return sudokuBoard;
