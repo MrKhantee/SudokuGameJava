@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.gui;
 
 import java.util.ArrayList;
 import java.util.ListIterator;

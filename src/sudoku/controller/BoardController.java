@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.controller;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -17,6 +17,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+import sudoku.BoardChecker;
+import sudoku.ReadFile;
+import sudoku.exceptions.NoMoreContentException;
+import sudoku.gui.*;
 public class BoardController implements Initializable {
 	
 	//Injectable Fields for FXML Document
@@ -37,9 +41,9 @@ public class BoardController implements Initializable {
 	final double PANE_WIDTH  = 1024;
 	final double PANE_HEIGHT = 768;
 	
-	final static int BOARD_WIDE   = 9;
-	final static int BOARD_TALL   = 9;
-	final static int SIZE_SQUARE  = 3;
+	public final static int BOARD_WIDE   = 9;
+	public final static int BOARD_TALL   = 9;
+	public final static int SIZE_SQUARE  = 3;
 	private final double BOARD_HEIGHT = (double)(5D/7D)*PANE_HEIGHT;
 	private final double BOARD_WIDTH  = (double)(5D/7D)*PANE_WIDTH;
 	
@@ -76,13 +80,12 @@ public class BoardController implements Initializable {
 		addButtons();			
 	}
 	
-	private void initialiseGridPane(double width, double height){
-		
+	private void initialiseGridPane(double width, double height)
+	{	
 		this.gridPane.setPrefSize(width, height);
 		this.gridPane.setMinSize(width, height);
 		
 		for(int i = 0; i < BOARD_WIDE; i++){
-			//System.err.println( (double)(BOARD_WIDTH/9.0D) );
 			gridPane.getColumnConstraints().add(new ColumnConstraints((double)(BOARD_WIDTH/9)));	
 		}
 		

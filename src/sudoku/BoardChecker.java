@@ -2,6 +2,11 @@ package sudoku;
 
 import java.util.HashSet;
 import java.util.Set;
+import sudoku.gui.Square;
+
+import static sudoku.controller.BoardController.BOARD_WIDE;
+import static sudoku.controller.BoardController.BOARD_TALL;
+import static sudoku.controller.BoardController.SIZE_SQUARE;
 
 public class BoardChecker{
 
@@ -18,7 +23,7 @@ public class BoardChecker{
 	
 	private boolean checkColumns(Square[][] board) {	
 		
-		for(int i = 0; i < BoardController.BOARD_WIDE; i++){	
+		for(int i = 0; i < BOARD_WIDE; i++){	
 			
 			Square[] rowHolder = board[i];
 			Set<Integer> numHolder = new HashSet<Integer>();
@@ -34,12 +39,12 @@ public class BoardChecker{
 	}
 	
 	private boolean checkRows(Square[][] board){
-		Square temp[][] = new Square[BoardController.BOARD_WIDE][BoardController.BOARD_TALL];
+		Square temp[][] = new Square[BOARD_WIDE][BOARD_TALL];
 		
 		//Rotate the board.
 		//Swap elements.
-		for(int i = 0; i < BoardController.BOARD_WIDE; i++){
-			for(int j = 0; j < BoardController.BOARD_TALL; j ++){
+		for(int i = 0; i < BOARD_WIDE; i++){
+			for(int j = 0; j < BOARD_TALL; j ++){
 				temp[i][j] = board[j][i];
 			}
 		}
@@ -58,10 +63,10 @@ public class BoardChecker{
 		
 		Set<Integer> numHolder = new HashSet<Integer>();
 		
-		while(i < BoardController.BOARD_TALL && result == true){
+		while(i < BOARD_TALL && result == true){
 			
 			//Fill in a 3x3 subgrid.
-			for(j = k; j < k+BoardController.SIZE_SQUARE; j++){
+			for(j = k; j < k+SIZE_SQUARE; j++){
 				if(numHolder.add(board[i][j].getNum()) == false){
 					System.out.println("Returned false in square check.");
 					return false;
@@ -69,12 +74,12 @@ public class BoardChecker{
 			}
 			
 			//Check if you are at column 2.
-			if( (i+1)%BoardController.SIZE_SQUARE == 0 && (j%BoardController.SIZE_SQUARE==0) ){
+			if( (i+1)%SIZE_SQUARE == 0 && (j%SIZE_SQUARE==0) ){
 				
 				//Clear the set.
 				numHolder.clear();
 				
-				if(j==BoardController.BOARD_WIDE){
+				if(j==BOARD_WIDE){
 					//You're at the end of the line.
 					i = i+1;//Move to next row.
 					k = 0;
@@ -83,7 +88,7 @@ public class BoardChecker{
 				else{
 					i = i - 2;	//Change back to column 0
 								//in square.
-					k = k+BoardController.SIZE_SQUARE;	//Need to go to next major column.
+					k = k+SIZE_SQUARE;	//Need to go to next major column.
 				}
 				
 			}
@@ -99,8 +104,8 @@ public class BoardChecker{
 	private boolean checkZeros(Square[][] board) {
 		
 		//Check if there are any zeros on the board.
-		for(int i = 0; i < BoardController.BOARD_TALL; i++){
-			for(int j = 0; j < BoardController.BOARD_WIDE; j++){
+		for(int i = 0; i < BOARD_TALL; i++){
+			for(int j = 0; j < BOARD_WIDE; j++){
 				if(board[i][j].getNum()==0){
 					return false;
 				}

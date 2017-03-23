@@ -1,9 +1,8 @@
-package sudoku;
+package sudoku.controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,11 +13,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import sudoku.Main;
+import sudoku.gui.BoardButton;
+import sudoku.gui.MainButton;
+import sudoku.gui.SidePane;
 
 public class FrontPageController implements Initializable {
 
@@ -153,13 +154,18 @@ public class FrontPageController implements Initializable {
 		Stage primaryStage = (Stage) submitButton.getScene().getWindow();
 		try {
 			page = (Parent)FXMLLoader.load(Main.class.getResource("MainBoard.fxml"));
+		
 			Scene scene = new Scene(page);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("../application.css").toExternalForm());
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		
-		} catch (IOException e) {
+		} 
+		catch (NullPointerException  nPE){
+			System.err.println("Cannot get FXML Template OR CSS File ");
+		}
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

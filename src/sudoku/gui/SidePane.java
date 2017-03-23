@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.gui;
 
 import javafx.scene.layout.AnchorPane;
 

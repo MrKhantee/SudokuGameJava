@@ -2,6 +2,7 @@ package sudoku;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +17,12 @@ public class Main extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
+		} 
+		catch(LoadException lE){
+			lE.printStackTrace();
+		}
+		catch(Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}

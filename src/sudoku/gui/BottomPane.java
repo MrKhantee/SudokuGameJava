@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

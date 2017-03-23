@@ -1,5 +1,8 @@
 package sudoku;
 
+import sudoku.gui.Square;
+
+@SuppressWarnings("unused")
 public class BoardSolver extends BoardChecker {
 	
 	private Square[][] board = null;

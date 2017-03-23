@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.exceptions;
 
 public class NoMoreContentException extends Exception {
 	

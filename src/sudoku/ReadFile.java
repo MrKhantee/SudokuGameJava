@@ -1,12 +1,15 @@
 package sudoku;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
+import sudoku.exceptions.NoMoreContentException;
+import sudoku.gui.Square;
+
+import static sudoku.controller.BoardController.BOARD_WIDE;
+import static sudoku.controller.BoardController.BOARD_TALL;
 
 public class ReadFile {
 
@@ -14,7 +17,7 @@ public class ReadFile {
 	private String tmp = null;
 	private String [] lineHolder = null;
 	
-	private Square[][] sudokuBoard = new Square[BoardController.BOARD_TALL][BoardController.BOARD_WIDE];
+	private Square[][] sudokuBoard = new Square[BOARD_TALL][BOARD_WIDE];
 	
 	public ReadFile(String pathname) throws NoMoreContentException, FileNotFoundException{
 		
@@ -29,15 +32,15 @@ public class ReadFile {
 		{
 			if(txtReader.ready())
 			{
-				for(int i = 0; i < BoardController.BOARD_TALL; i++){
+				for(int i = 0; i < BOARD_TALL; i++){
 					
 					tmp = txtReader.readLine();
 					
-					String[] result = tmp.split(" ");
+					lineHolder = tmp.split(" ");
 					
-					for(int j =0; j < result.length;j++){
+					for(int j =0; j < lineHolder.length;j++){
 						sudokuBoard[i][j] = new Square(20,20);
-						sudokuBoard[i][j].setNum(Integer.parseInt(result[j]));
+						sudokuBoard[i][j].setNum(Integer.parseInt(lineHolder[j]));
 						if(sudokuBoard[i][j].getNum()!=0){
 							sudokuBoard[i][j].setFixedStatus(true);
 						}
@@ -46,15 +49,18 @@ public class ReadFile {
 				}
 			}
 		} 
+		
 		catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
 			System.err.println("Cannot read text file.");
 		}
-		catch (NumberFormatException nFE){
+		
+		catch (NumberFormatException nFE)
+		{
 			System.err.println("Number Format Exception");
 		}
-	
+		
 	}
 	
 	public Square[][] getBoard(){
