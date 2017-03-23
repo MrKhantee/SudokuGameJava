@@ -170,9 +170,7 @@ public class BoardController implements Initializable {
 		    	
 		    	BoardChecker bc = new BoardChecker();
 		    	
-		    	boolean[] res = bc.checkBoard(sudokuBoard);
-		    	
-		    	isBoardValid = res[0] & res[1] & res[2];
+		    	isBoardValid = bc.checkBoard(sudokuBoard);
 		    	
 		    	if(isBoardValid)
 		    	{
@@ -184,6 +182,8 @@ public class BoardController implements Initializable {
 		    		bottomPane.setText("");
 		    		bottomPane.setText("Check Complete: Board is Invalid");
 		    	}
+	
+		    	bc = null;
 		    }
 		});
 		
