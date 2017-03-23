@@ -29,8 +29,6 @@ public class BoardChecker{
 
 	/**
 	 * The default no-arg constructor method. 
-	 * @param
-	 * @return
 	 */
 	public BoardChecker(){
 		//No body here.

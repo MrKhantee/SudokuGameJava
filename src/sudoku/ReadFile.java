@@ -13,18 +13,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Objects;
-
 import sudoku.exceptions.NoMoreContentException;
 import sudoku.gui.Square;
-
 import static sudoku.controller.BoardController.BOARD_WIDE;
 import static sudoku.controller.BoardController.BOARD_TALL;
 
 
 /**
  * A class that can be used to read external text files
- * using the InputStream & BufferedReader classes.
+ * using the InputStream and BufferedReader classes.
  * 
  * @version 1.0
  * 

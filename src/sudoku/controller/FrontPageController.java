@@ -37,8 +37,6 @@ import sudoku.gui.SidePane;
  * dictates the actions that occur on this page and sets up the 
  * GUI components on this page.
  * 
- * @see FrontPageController.fxml
- * 
  * @version 1.0
  *
  */
@@ -68,44 +66,61 @@ public class FrontPageController implements Initializable {
 	/* Filename of the text-file to read from. */
 	public static String filename = null;
 	
+	/**
+	 * This method is run when the FXML Template is loaded. It
+	 * initialises the panes and the adds the buttons onto the 
+	 * stage.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initialisePanes();
 		addButtons();
 	}
 	
-	
+	/**
+	 * This method initialises the Anchor panes on the GUI page. 
+	 * It also adds the titles onto the stage.
+	 */
 	private void initialisePanes(){
-		
+		/* The top and bottom Anchor Panes. */
 		topPane 	= new SidePane(700, 100, 170, 20);
 		bottomPane 	= new SidePane(700, 150, 170, 600);
 		
+		/* The title text for the front page and its formatting. */
 		title = new Label("Welcome! Please Choose A Board Difficulty");
 		title.setPrefSize(700,100);
 		title.setStyle("-fx-font-size:30px;-fx-font-weight:900;");
 		title.setTextFill(Color.WHITE);
 		title.setAlignment(Pos.CENTER);
 		
+		/* Declare the background pane. */
 		backingPane = new SidePane(700, 420, 170, 150);
 		
+		/* Add title to the top pane. */
 		topPane.getChildren().add(title);
+		/* Add the panes onto the front pane. */
 		frontPane.getChildren().addAll(backingPane, topPane, bottomPane);
 	}
 	
+	/**
+	 * This method adds buttons onto the GUI and sets
+	 * their EventHandlers.
+	 */
 	private void addButtons(){
 		
-		//Create a button for each action.
+		/* Create button objects and set: size, position & text. */
 		easyButton    = new MainButton(300, 100, 30, 30, "Easy");
 		mediumButton  = new MainButton(300, 100, 30, 160, "Medium");
 		hardButton    = new MainButton(300, 100, 30, 290, "Hard");
 		submitButton  = new BoardButton(100, 48, 550, 60, "Select");
 		
-		//Set Event Handlers for each of the buttons.
+		/* Assign Action Event to a button. */
 		easyButton.setOnAction(btnEasyPressed);
 		mediumButton.setOnAction(btnMediumPressed);
 		hardButton.setOnAction(btnHardPressed);
 		submitButton.setOnAction(btnSubmitPressed);
 		
+		/* Create a simple text label. */
 		textDesc      = new Label(" Board Name: "); 
 		textDesc.setStyle("-fx-font-size:20px;-fx-border-width:3px;-fx-border-color:white;");
 		textDesc.setTextFill(Color.WHITE);
@@ -113,6 +128,9 @@ public class FrontPageController implements Initializable {
 		textDesc.setLayoutY(60);
 		textDesc.setPrefHeight(48);
 		
+		/* Generate TextArea for user to text into. This will
+		 * take as input the text-file the user wants to read from.
+		 */
 		boardName     = new TextArea(); 
 		boardName.setPrefWidth(300);
 		boardName.setLayoutX(200); 
@@ -120,16 +138,17 @@ public class FrontPageController implements Initializable {
 		boardName.setMaxHeight(20);
 		boardName.setWrapText(false);
 		
+		/* Add buttons to the backing pane and bottom pane. */
 		backingPane.getChildren().addAll(easyButton, mediumButton,hardButton);
 		bottomPane.getChildren().addAll(submitButton, textDesc, boardName);
 	}
 	
 	/*-------------------------------EVENT HANDLERS------------------------------------*/
 	
-	/*
-	 * Event Handler for Easy, Medium 
-	 * and Hard Buttons pressed
-	 * 
+	/**
+	 * If the user clicks the 'Easy' 
+	 * option on the front page. It loads an 
+	 * easy difficulty Sudoku board.
 	 */
 	EventHandler <ActionEvent> btnEasyPressed = 
 	new EventHandler <ActionEvent>()
@@ -143,6 +162,11 @@ public class FrontPageController implements Initializable {
 		}
 	};
 	
+	/**
+	 * If the user clicks the
+	 * 'Medium' option on the front page. It loads a 
+	 * medium difficulty Sudoku board.
+	 */
 	EventHandler <ActionEvent> btnMediumPressed = 
 	new EventHandler <ActionEvent>(){
 		@Override
@@ -152,6 +176,11 @@ public class FrontPageController implements Initializable {
 		}
 	};
 	
+	/**
+	 * If the user clicks the 'Hard' option on the
+	 * front page. It loads a hard difficulty 
+	 * Sudoku board.
+	 */
 	EventHandler <ActionEvent> btnHardPressed = 
 	new EventHandler <ActionEvent>(){
 		@Override
@@ -161,11 +190,18 @@ public class FrontPageController implements Initializable {
 		}
 	};
 	
+	/**
+	 * The 'Submit' button takes the user's input
+	 * from the TextArea-boardName and attempts to
+	 * load a file with that name.
+	 */
 	EventHandler <ActionEvent> btnSubmitPressed = 
 	new EventHandler <ActionEvent>(){
 		@Override
 		public void handle(ActionEvent arg0) 
 		{	
+			
+			/* Check the user input is not empty and/or NULL. */
 			if(!boardName.getText().equals("") && boardName.getText()!=null)
 			{
 				filename = boardName.getText();
@@ -174,28 +210,36 @@ public class FrontPageController implements Initializable {
 		}
 	};
 	
-	
-	private void changeStage(String filename){
-		System.out.println("Filename Set as " + filename);
+	/**
+	 * This method changes the main stage. It loads the MainBoard.fxml
+	 * template onto the GUI. The BoardController.java class takes over 
+	 * and populates the board with the user's choice of text file. 
+	 * 
+	 * @param filename - The text-file containing the sudoku numbers
+	 * 					 to be displayed. 
+	 */
+	private void changeStage(String filename)
+	{
 		Parent page;
 		Stage primaryStage = (Stage) submitButton.getScene().getWindow();
-		try {
-			page = (Parent)FXMLLoader.load(Main.class.getResource("MainBoard.fxml"));
 		
+		try {
+			/* Load the new FXML template onto the main stage. */
+			page = (Parent)FXMLLoader.load(Main.class.getResource("MainBoard.fxml"));		
 			Scene scene = new Scene(page);
 			scene.getStylesheets().add(getClass().getResource("../application.css").toExternalForm());
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+		}
 		
-		} 
+		/* Catch the 2 possible exceptions. */
 		catch (NullPointerException  nPE){
-			System.err.println("Cannot get FXML Template OR CSS File ");
+			System.err.println("FXML/CSS NullPointerException has occured.");
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("FXML/CSS IOException has occured.");
 			e.printStackTrace();
 		}
 	}
-
 }

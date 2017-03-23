@@ -25,14 +25,15 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	
 	/**
-	 * 
-	 * The 'start' method, begins the launching of the GUI.
+	 * The 'start' method launches the GUI.
 	 * 
 	 * @param primaryStage - The stage object to be displayed.
 	 * 
+	 * @exception LoadException - If the FXML Template cannot be loaded.
+	 * @exception Exception     - The super-class: Used if any exception occurs.
 	 */
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws LoadException, Exception{
 		try 
 		{	
 			/* 
@@ -76,8 +77,11 @@ public class Main extends Application {
 	 * This is the main launching method.
 	 * 
 	 * @param args - Arguments from the command line.
+	 * 
+	 * @throws Exception - This exception could be thrown due to
+	 * 				invalid command line arguments.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		launch(args);
 	}
 }

@@ -39,7 +39,6 @@ import sudoku.gui.*;
  * 
  * It adds 1 GridPane, a lower Anchor Pane and side Anchor Pane.
  * 
- * @see MainBoard.fxml
  * 
  * @version 1.0
  *
@@ -86,7 +85,6 @@ public class BoardController implements Initializable {
 	/*Holds status of whether board is valid or not.*/
 	boolean isBoardValid = false;	
 	
-	
 	/**
 	 * This method is run when the FXML template is loaded. It
 	 * reads the text file into the GUI and lays out all the buttons,
@@ -99,7 +97,6 @@ public class BoardController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{	
-		
 		try 
 		{
 			rf = new ReadFile(FrontPageController.filename);
@@ -123,7 +120,8 @@ public class BoardController implements Initializable {
 		/* Add contents of the 2D Array sudokuBoard[][] onto the pane. */
 		initialiseBoard();
 		/* Add buttons onto the board. */
-		addButtons();			
+		addButtons();
+				
 	}
 	
 	/**
@@ -171,7 +169,7 @@ public class BoardController implements Initializable {
 	}
 	
 	/**
-	 * This method adds the bottom & side anchor panes 
+	 * This method adds the bottom and side anchor panes 
 	 * onto the main stage.
 	 */
 	private void addPanes(){
@@ -187,6 +185,7 @@ public class BoardController implements Initializable {
 	/**
 	 * This method adds the buttons onto the main board and 
 	 * adds the EventHandlers for each button.
+	 * 
 	 */
 	private void addButtons(){
 		/* Create button objects and set: size, position & text. */
@@ -213,6 +212,9 @@ public class BoardController implements Initializable {
 		});
 		
 		/* Event Handler for Reset Button */
+		/**
+		 * @exception FileNotFoundException - The file cannot be found.
+		 */
 		resetButton.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	
