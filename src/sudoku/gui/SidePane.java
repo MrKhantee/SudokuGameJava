@@ -4,8 +4,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class SidePane extends AnchorPane {
 	
-	//Variables for position.
-	
 	public SidePane(double width, double height, double xPos, double yPos){
 		
 		this.setPrefSize(width, height);
