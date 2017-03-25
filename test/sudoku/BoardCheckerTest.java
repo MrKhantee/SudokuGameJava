@@ -8,9 +8,16 @@
 package sudoku;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import sudoku.controller.BoardController;
+import sudoku.exceptions.NoMoreContentException;
+import sudoku.gui.*;
 
 /**
  * 
@@ -19,19 +26,38 @@ import org.junit.Test;
  * 
  * @version 1.0
  */
+
 public class BoardCheckerTest {
 	
 	
-	BoardChecker boardChecker = null;
+	private BoardChecker boardChecker = null;
+	private ReadFile rf = null;
+	private Square[][] board = null;
 	
 	@Before
 	public void setup(){
-		//
 		boardChecker = new BoardChecker();
 	}
 	
 	@Test
-	public void testCheckZeros_Positive(){
+	public void testCheckZeros_Positive()
+	{
+		
+		try{
+			rf = new ReadFile("solved1");
+			board = rf.getBoard();
+		}
+		catch(IOException ioe)
+		{
+			System.err.println("File cannot be read successfully.");
+		}
+		catch(NoMoreContentException nmce)
+		{
+			System.err.println("Incorrectly Formatted Sudoku Board");
+		}
+		
+		//boardChecker.checkBoard(board);
+		//assertFalse(boardChecker.getStatus("zeros"));
 		
 	}
 	
