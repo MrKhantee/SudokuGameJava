@@ -26,7 +26,12 @@ import static sudoku.controller.BoardController.SIZE_SQUARE;
  * @version 1.0
  */
 public class BoardChecker{
-
+	
+	private boolean rowStatus;
+	private boolean columnStatus;
+	private boolean squareStatus;
+	private boolean zeroStatus;
+	
 	/**
 	 * The default no-arg constructor method. 
 	 */
@@ -62,12 +67,13 @@ public class BoardChecker{
 	
 			for(Square s: rowHolder){
 				if( numHolder.add(s.getNum()) == false){
-					return false;
+					this.columnStatus = false;
+					return this.columnStatus;
 				}
 			}
 		}
 		
-		return true;
+		return this.columnStatus;
 	}
 	
 	/**
@@ -88,8 +94,10 @@ public class BoardChecker{
 			}
 		}
 		//The rows are now columns.
-		return checkColumns(temp);
-	}
+		this.rowStatus = checkColumns(temp);
+		
+		return this.rowStatus;
+	}	
 	
 	
 	/**
@@ -124,7 +132,8 @@ public class BoardChecker{
 			for(j = k; j < k+SIZE_SQUARE; j++){
 				if(numHolder.add(board[i][j].getNum()) == false){
 					System.out.println("Returned false in square check.");
-					return false;
+					this.squareStatus = false;
+					return this.squareStatus;
 				}
 			}
 			
@@ -153,7 +162,9 @@ public class BoardChecker{
 			}	
 		}
 		
-		return true;
+		this.squareStatus = true;
+		
+		return this.squareStatus;
 	}
 	
 	/**
@@ -172,12 +183,34 @@ public class BoardChecker{
 		for(int i = 0; i < BOARD_TALL; i++){
 			for(int j = 0; j < BOARD_WIDE; j++){
 				if(board[i][j].getNum()==0){
-					return false;
+					this.zeroStatus = false;
+					return this.zeroStatus;
 				}
 			}
 		}
 		
-		return true;
+		return this.zeroStatus;
 	}
 
+	public boolean getStatus(String statusType){
+		
+		boolean result = false;
+		
+		if("rows".equalsIgnoreCase(statusType)){
+			result = this.rowStatus;
+		}
+		else if ("columns".equalsIgnoreCase(statusType)){
+			result = this.columnStatus;
+		}
+		else if ("squares".equalsIgnoreCase(statusType)){
+			result = this.squareStatus;
+		}
+		else if ("zeros".equalsIgnoreCase(statusType)){
+			result = this.zeroStatus;
+		}
+		
+		return result;
+		
+	}
+	
 }

@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import javafx.application.Platform;
 import sudoku.exceptions.NoMoreContentException;
 import sudoku.gui.Square;
 import static sudoku.controller.BoardController.BOARD_WIDE;
@@ -34,7 +36,7 @@ public class ReadFile {
 	private String [] lineHolder = null;
 	
 	/** The empty Sudoku board - A 2D array of Square */
-	private Square[][] sudokuBoard = new Square[BOARD_TALL][BOARD_WIDE];
+	private Square[][] sudokuBoard;
 	
 	/**
 	 * 
@@ -46,6 +48,8 @@ public class ReadFile {
 	 * 
 	 */
 	public ReadFile(String pathname) throws NoMoreContentException, FileNotFoundException{
+		Square tmpSquare = new Square(0,0);
+		sudokuBoard = new Square[BOARD_TALL][BOARD_WIDE];
 		
 		/* Declare a StringBuilder object with the initial path. Then
 		 * add on the filename and .txt suffix to form the full relative
@@ -61,12 +65,18 @@ public class ReadFile {
 		InputStreamReader inputStream = new InputStreamReader(getClass().getResourceAsStream(filePath.toString()));
 		BufferedReader txtReader = new BufferedReader(inputStream);
 		
+		
+				
+			
 		/*
 		 * This Try-Catch block uses the txtReader to read lines from the 
 		 * chosen text-file.
 		 */
 		try 
 		{	
+			
+			
+			
 			/* Check if the BufferedReader object is ready to be read.*/
 			if(txtReader.ready())
 			{	
@@ -98,13 +108,13 @@ public class ReadFile {
 					 * 4. If this number wasn't 0 then it is a fixed non-editable
 					 * 	  field of the board. i.e. the user cannot edit this.
 					 * */
-					for(int j =0; j < lineHolder.length;j++){
-						sudokuBoard[i][j] = new Square(20,20);
-						sudokuBoard[i][j].setNum(Integer.parseInt(lineHolder[j]));
-						if(sudokuBoard[i][j].getNum()!=0){
-							sudokuBoard[i][j].setFixedStatus(true);
-						}	
-					}
+						for(int j =0; j < lineHolder.length;j++){
+							sudokuBoard[i][j] = new Square(20,20);
+							sudokuBoard[i][j].setNum(Integer.parseInt(lineHolder[j]));
+							if(sudokuBoard[i][j].getNum()!=0){
+								sudokuBoard[i][j].setFixedStatus(true);
+							}	
+						}
 				}
 			}
 		} 
@@ -123,6 +133,9 @@ public class ReadFile {
 		{
 			System.err.println("Number Format Exception");
 		}
+		catch (IllegalStateException ise){
+			ise.printStackTrace();
+		}
 		
 	}
 	
@@ -136,5 +149,4 @@ public class ReadFile {
 	public Square[][] getBoard(){
 		return sudokuBoard;
 	}
-		
 }

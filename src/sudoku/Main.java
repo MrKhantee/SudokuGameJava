@@ -9,6 +9,7 @@
 package sudoku;
 	
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.LoadException;
 import javafx.stage.Stage;
@@ -34,6 +35,9 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws LoadException, Exception{
+		
+		
+		
 		try 
 		{	
 			/* 
@@ -71,6 +75,7 @@ public class Main extends Application {
 		{
 			e.printStackTrace();
 		}
+
 	}
 	
 	/**
@@ -82,6 +87,6 @@ public class Main extends Application {
 	 * 				invalid command line arguments.
 	 */
 	public static void main(String[] args) throws Exception{
-		launch(args);
+		Application.launch(args);
 	}
 }
