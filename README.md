@@ -55,12 +55,37 @@ Sudoku
 |── docs
 |    |── ...JavaDoc Documentation...
 ```
-## **Installing & Running**
+## **Installaing & Running**
+
+### Packaging the Program
+Do this only if **changes** have been made to the **source code** or to the current version of the application. These steps export the current project into a ```.jar``` file. There are then 2 ways to run it.
 
 ### One-Click Run
-The JAR file ```Sudoku.jar``` is a Runnable JAR file that can be opened by simply double-clicking on it.
+The simplest method. The pre-packaged application can be run by double-clicking on the Runnable JAR file:
+```
+/SudokuV1_0.jar
+```
+### Command Line Run
+The program can also be run from the Windows command line. This displays any debug print statements and any exceptions that may occur during compile & runtime.
 
-### Manual Installation
+Start by typing:
+ ```
+ cmd
+
+ ```
+ in the windows search box. Preferably run as administrator.
+
+Navigate to the directory of the ```.jar``` file by doing the following.
+
+```
+cd C:\PATH_TO_FILE\Sudoku\
+```
+Where ```PATH_TO_FILE``` is the absolute location of the file on the system.
+
+Then use the following command to run the application.
+```
+java SudokuV1_0.jar {optional args}
+```
 
 ## **Documentation**
 
@@ -70,7 +95,10 @@ The code contains inline documentation to help describe functionality. This can 
 // Single Line Comments
 ```
 ```
-/* Single Line Comment */
+/* Single  
+ * & Multi-Line
+ * Comment
+ */
 ```
 The Javadoc comments will be published as described below.
 ```
@@ -82,14 +110,8 @@ The source for the ```javadoc``` documentation is contained in the ```docs``` fo
 ```
 .../Sudoku/docs/index.html
 ```
-This allows for the viewing of:
 
-* Application Classes
-* Application Packages
-* Class Relations
-* Method Parameters and Exceptions
-
-## Testing
+## **Testing**
 
 ## **Authors**
 * Ravindra Bhadti - Version 1.0
