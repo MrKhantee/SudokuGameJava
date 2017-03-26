@@ -23,7 +23,7 @@ import javafx.scene.control.TextFormatter;
  * @version 1.0
  * 
  */
-public class Square extends TextArea{
+public class SquareGUI extends TextArea{
 	
 	/* The number to be held in the square. */
 	private int squareNum;
@@ -48,7 +48,7 @@ public class Square extends TextArea{
 	 * @param width  - The width of the square object.
 	 * @param height - The height of the square object.
 	 */
-	public Square(double width, double height){
+	public SquareGUI(double width, double height){
 		
 		/* Setting height, width and setting wrap text = false */
 		this.setPrefHeight(height);

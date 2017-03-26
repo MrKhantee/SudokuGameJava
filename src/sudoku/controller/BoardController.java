@@ -97,21 +97,9 @@ public class BoardController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{	
-		try 
-		{
-			rf = new ReadFile(FrontPageController.filename);
-			this.sudokuBoard = rf.getBoard();
-			rf = null; 	//Reset file pointer.
-		} 
-		
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (NoMoreContentException e) 
-		{
-			e.printStackTrace();
-		}
+		rf = new ReadFile(FrontPageController.filename);
+		this.sudokuBoard = rf.getBoard();
+		rf = null; 	//Reset file pointer.
 		
 		/* Initialise the GridPane which will hold the Sudoku Board */
 		initialiseGridPane(BOARD_WIDTH, BOARD_HEIGHT);
@@ -229,21 +217,9 @@ public class BoardController implements Initializable {
 		    	/* User wishes to reset the board, thus re-read the original text-file. 
 		    	 * This removes the users current progress. */
 		    	if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-		    		try {
-		    			rf = new ReadFile(FrontPageController.filename);
-						sudokuBoard = rf.getBoard();
-						initialiseBoard();
-					} 
-		    		
-		    		/* Catch the same exceptions as in the ReadFile.java */
-		    		catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						System.err.println("File Not Found");
-					} 
-		    		catch (NoMoreContentException e1) {
-						System.err.println("There inputted board is not 9x9.");
-					}
-		    		
+	    			rf = new ReadFile(FrontPageController.filename);
+					sudokuBoard = rf.getBoard();
+					initialiseBoard();
 		    	}
 		    }
 		});

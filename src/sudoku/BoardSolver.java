@@ -1,16 +1,16 @@
 package sudoku;
 
-import sudoku.gui.Square;
+import sudoku.gui.SquareGUI;
 
 @SuppressWarnings("unused")
 public class BoardSolver extends BoardChecker {
 	
-	private Square[][] board = null;
+	private SquareGUI[][] board = null;
 	
 	private boolean boardSolved = false;
 	private boolean validBoard  = false;
 	
-	public BoardSolver(Square[][] inputBoard) throws NullPointerException
+	public BoardSolver(SquareGUI[][] inputBoard) throws NullPointerException
 	{
 		if(inputBoard!=null)
 		{
@@ -31,13 +31,13 @@ public class BoardSolver extends BoardChecker {
 		
 		//Firstly go through board and update possibilities.
 		
-		//Start with first editable square input the first number.
+		//Start with first editable SquareGUI input the first number.
 			//do-while loop : result!=0.
 			//Input the first number.
 			//Check validity. 
 			//If invalid iterate to the next number.
 			//This is the back-tracking method.
-			//Do this until result = 0. If so then go back to previous square.
+			//Do this until result = 0. If so then go back to previous SquareGUI.
 		
 		
 	}

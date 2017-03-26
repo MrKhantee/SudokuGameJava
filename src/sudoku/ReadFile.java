@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 
 import javafx.application.Platform;
 import sudoku.exceptions.NoMoreContentException;
-import sudoku.gui.Square;
+import sudoku.gui.SquareGUI;
 import static sudoku.controller.BoardController.BOARD_WIDE;
 import static sudoku.controller.BoardController.BOARD_TALL;
 
@@ -35,21 +35,45 @@ public class ReadFile {
 	private String tmp = null;
 	private String [] lineHolder = null;
 	
-	/** The empty Sudoku board - A 2D array of Square */
-	private Square[][] sudokuBoard;
+	/** The empty Sudoku board - A 2D array of SquareGUI */
+	private SquareGUI[][] sudokuBoard = new SquareGUI[BOARD_TALL][BOARD_WIDE];
+	
+	/**
+	 * The constructor for the read file function.
+	 * @param pathname - The name of the board to be read (without ".txt" suffix).
+	 * 
+	 */
+	public ReadFile(String pathname){
+		try 
+		{
+			if(pathname==null || pathname.length()==0){
+				System.out.println("Please enter valid file name");
+			}
+			else{
+				this.readIntoObject(pathname);
+			}
+		} 
+		catch (IOException ioe) 
+		{
+			System.err.println(ioe.getMessage());
+		} 
+		catch (NoMoreContentException nmce) 
+		{
+			System.err.println(nmce.getMessage());
+		}
+		finally{
+			sudokuBoard = null;
+		}
+		
+	}
 	
 	/**
 	 * 
-	 * @param pathname				  - The name of the board to be read (without ".txt" suffix).
-	 * @throws NoMoreContentException - This exception is thrown iff the Sudoku board contains
-	 * 									less than 81 numbers.
-	 * @throws FileNotFoundException  - This exception is thrown iff the text file cannot be found
-	 * 									in the specified path.
-	 * 
+	 * @param pathname - The name of the board to be read (without ".txt" suffix).
+	 * @throws NoMoreContentException
+	 * @throws IOException
 	 */
-	public ReadFile(String pathname) throws NoMoreContentException, FileNotFoundException{
-		Square tmpSquare = new Square(0,0);
-		sudokuBoard = new Square[BOARD_TALL][BOARD_WIDE];
+	public final void readIntoObject(String pathname) throws NoMoreContentException,IOException{
 		
 		/* Declare a StringBuilder object with the initial path. Then
 		 * add on the filename and .txt suffix to form the full relative
@@ -64,9 +88,6 @@ public class ReadFile {
 		 * */
 		InputStreamReader inputStream = new InputStreamReader(getClass().getResourceAsStream(filePath.toString()));
 		BufferedReader txtReader = new BufferedReader(inputStream);
-		
-		
-				
 			
 		/*
 		 * This Try-Catch block uses the txtReader to read lines from the 
@@ -74,9 +95,7 @@ public class ReadFile {
 		 */
 		try 
 		{	
-			
-			
-			
+
 			/* Check if the BufferedReader object is ready to be read.*/
 			if(txtReader.ready())
 			{	
@@ -102,14 +121,14 @@ public class ReadFile {
 					}
 					
 					/* Loop through each number in lineHolder 
-					 * 1. Create a new square object for an index of the board.
+					 * 1. Create a new SquareGUI object for an index of the board.
 					 * 2. Parse the number in the String array to an Integer. 
-					 * 3. Store this in the value field of the Square object.
+					 * 3. Store this in the value field of the SquareGUI object.
 					 * 4. If this number wasn't 0 then it is a fixed non-editable
 					 * 	  field of the board. i.e. the user cannot edit this.
 					 * */
 						for(int j =0; j < lineHolder.length;j++){
-							sudokuBoard[i][j] = new Square(20,20);
+							sudokuBoard[i][j] = new SquareGUI(20,20);
 							sudokuBoard[i][j].setNum(Integer.parseInt(lineHolder[j]));
 							if(sudokuBoard[i][j].getNum()!=0){
 								sudokuBoard[i][j].setFixedStatus(true);
@@ -122,7 +141,6 @@ public class ReadFile {
 		/* IOException occurs if text file cannot be read.*/
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			System.err.println("Cannot read text file.");
 		}
 		
@@ -136,7 +154,6 @@ public class ReadFile {
 		catch (IllegalStateException ise){
 			ise.printStackTrace();
 		}
-		
 	}
 	
 	
@@ -144,9 +161,9 @@ public class ReadFile {
 	 * This getter method returns the sudoku-board that was populated
 	 * in the constructor method.
 	 * 
-	 * @return Square[][] - The populated sudoku board.
+	 * @return SquareGUI[][] - The populated sudoku board.
 	 */
-	public Square[][] getBoard(){
-		return sudokuBoard;
+	public SquareGUI[][] getBoard(){
+		return this.sudokuBoard;
 	}
 }
