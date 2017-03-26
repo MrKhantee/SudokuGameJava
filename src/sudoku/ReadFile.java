@@ -61,9 +61,6 @@ public class ReadFile {
 		{
 			System.err.println(nmce.getMessage());
 		}
-		finally{
-			sudokuBoard = null;
-		}
 		
 	}
 	

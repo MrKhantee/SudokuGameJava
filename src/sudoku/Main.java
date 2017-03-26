@@ -36,46 +36,89 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws LoadException, Exception{
 		
+		Platform.runLater(new Runnable(){
+		@Override
+		public void run(){
+			try 
+			{	
+				/* 
+				 * Load page using FXMLLoader and set it to the parent.
+				 * Then. The window is set to 
+				 * non-resizeable and then the .show() method displays the GUI.
+				 */
+				Parent page = (Parent)FXMLLoader.load(Main.class.getResource("FrontPage.fxml"));
+				
+				/* Add a scene + CSS Stylesheet*/
+				Scene scene = new Scene(page);
+				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				
+				/* Set Window size to non-resizeable and display the stage after
+				 * setting the scene.
+				 */
+				primaryStage.setResizable(false);
+				primaryStage.setScene(scene);
+				primaryStage.show();
+			} 
+			
+			/*
+			 * This exception occurs if the FXML Template
+			 * can't be loaded. 
+			 */
+			catch(LoadException lE)
+			{
+				lE.printStackTrace();
+			}
+			/*
+			 * This exception is a generic exception which
+			 * is the superclass of the LoadException.
+			 */
+			catch(Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+
+			
+		});
 		
-		
-		try 
+		/*try 
 		{	
-			/* 
+			 
 			 * Load page using FXMLLoader and set it to the parent.
 			 * Then. The window is set to 
 			 * non-resizeable and then the .show() method displays the GUI.
-			 */
+			 
 			Parent page = (Parent)FXMLLoader.load(Main.class.getResource("FrontPage.fxml"));
 			
-			/* Add a scene + CSS Stylesheet*/
+			 Add a scene + CSS Stylesheet
 			Scene scene = new Scene(page);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			/* Set Window size to non-resizeable and display the stage after
+			 Set Window size to non-resizeable and display the stage after
 			 * setting the scene.
-			 */
+			 
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} 
 		
-		/*
+		
 		 * This exception occurs if the FXML Template
 		 * can't be loaded. 
-		 */
+		 
 		catch(LoadException lE)
 		{
 			lE.printStackTrace();
 		}
-		/*
+		
 		 * This exception is a generic exception which
 		 * is the superclass of the LoadException.
-		 */
+		 
 		catch(Exception e) 
 		{
 			e.printStackTrace();
 		}
-
+*/
 	}
 	
 	/**

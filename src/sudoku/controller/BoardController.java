@@ -77,7 +77,7 @@ public class BoardController implements Initializable {
 	private final double BOARD_WIDTH  = (double)(5D/7D)*PANE_WIDTH;
 	
 	/* The sudoku board. This will hold the puzzle.*/
-	private Square sudokuBoard[][] = null;
+	private SquareGUI sudokuBoard[][] = null;
 	
 	/* The ReadFile object initialised to null */
 	ReadFile rf = null;

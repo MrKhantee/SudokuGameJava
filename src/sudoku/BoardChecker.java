@@ -32,6 +32,9 @@ public class BoardChecker{
 	private boolean SquareStatus;
 	private boolean zeroStatus;
 	
+	private int errorStatusRow;
+	private int errorStatusColumn;
+	
 	/**
 	 * The default no-arg constructor method. 
 	 */
@@ -64,13 +67,24 @@ public class BoardChecker{
 			
 			SquareGUI[] rowHolder = board[i];
 			Set<Integer> numHolder = new HashSet<Integer>();
-	
-			for(SquareGUI s: rowHolder){
-				if( numHolder.add(s.getNum()) == false){
+			
+			for(int j = 0; j < rowHolder.length; j++){
+				if(numHolder.add(rowHolder[j].getNum()) ==  false){
+					this.errorStatusRow = i;
+					this.errorStatusColumn = j;
+					setInvalidCoord(i, j);
 					this.columnStatus = false;
 					return this.columnStatus;
 				}
 			}
+			
+			/*for(SquareGUI s: rowHolder){
+				if( numHolder.add(s.getNum()) == false){
+					this.errorStatus("Invalidity in: Column " + i + "| Row:  ")
+					this.columnStatus = false;
+					return this.columnStatus;
+				}
+			}*/
 		}
 		
 		return this.columnStatus;
@@ -95,6 +109,8 @@ public class BoardChecker{
 		}
 		//The rows are now columns.
 		this.rowStatus = checkColumns(temp);
+		
+		setInvalidCoord(this.errorStatusColumn, this.errorStatusRow);
 		
 		return this.rowStatus;
 	}	
@@ -179,13 +195,15 @@ public class BoardChecker{
 	 * @return The status for if any zeros are in the board.
 	 * 
 	 */
-	private boolean checkZeros(SquareGUI[][] board) {
+	public boolean checkZeros(SquareGUI[][] board) {
 		
 		//Check if there are any zeros on the board.
 		for(int i = 0; i < BOARD_TALL; i++){
 			for(int j = 0; j < BOARD_WIDE; j++){
-				if(board[i][j].getNum()==0){
-					this.zeroStatus = false;
+				if(board[i][j].getNum()==0)
+				{
+					setInvalidCoord(i, j);
+					this.zeroStatus = true;
 					return this.zeroStatus;
 				}
 			}
@@ -205,14 +223,23 @@ public class BoardChecker{
 			result = this.columnStatus;
 		}
 		else if ("SquareGUIs".equalsIgnoreCase(statusType)){
-			result = this.SquareGUIStatus;
+			result = this.SquareStatus;
 		}
 		else if ("zeros".equalsIgnoreCase(statusType)){
 			result = this.zeroStatus;
 		}
 		
 		return result;
-		
+	}
+	
+	public void setInvalidCoord(int row, int column){
+		this.errorStatusRow = row;
+		this.errorStatusColumn = column;
+	}
+	
+	public int[] getInvalidCoord(){
+		int[] result =  {this.errorStatusRow, this.errorStatusColumn};
+		return result;
 	}
 	
 }
