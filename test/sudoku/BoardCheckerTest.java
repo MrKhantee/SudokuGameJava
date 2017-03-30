@@ -21,18 +21,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
-import javafx.stage.Stage;
 import sudoku.ReadFile;
-import sudoku.exceptions.NoMoreContentException;
-import sudoku.gui.SquareGUI;
+import sudoku.gui.Square;
 
 public class BoardCheckerTest{
 
 	
 	private ReadFile rf = null;
-	private SquareGUI[][] sudokuBoard = null;
+	private Square[][] sudokuBoard = null;
 	private BoardChecker boardChecker = null;
 	
 	/*

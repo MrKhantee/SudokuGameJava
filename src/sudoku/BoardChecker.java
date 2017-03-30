@@ -11,7 +11,7 @@ package sudoku;
 
 import java.util.HashSet;
 import java.util.Set;
-import sudoku.gui.SquareGUI;
+import sudoku.gui.Square;
 
 import static sudoku.controller.BoardController.BOARD_WIDE;
 import static sudoku.controller.BoardController.BOARD_TALL;
@@ -21,7 +21,7 @@ import static sudoku.controller.BoardController.SIZE_SQUARE;
 /**
  * This class implements the Board Checker object. Once instanciated it 
  * allows a user to pass in a Sudoku board and carry out row, column, 
- * sub-SquareGUI and zero check operations.
+ * sub-Square and zero check operations.
  *	
  * @version 1.0
  */
@@ -45,13 +45,13 @@ public class BoardChecker{
 	
 	/**
 	 * This method calls the checkZeros, checkRows, checkColumns and 
-	 * checkSquareGUIs method in order to check if the full board is valid.
+	 * checkSquares method in order to check if the full board is valid.
 	 * 
 	 * @param board - The input Sudoku board.
 	 * @return boolean[] - An array of booleans which show
 	 */
-	public boolean checkBoard(SquareGUI[][] board) {
-		return checkZeros(board) && checkRows(board) && checkColumns(board) && checkSquareGUIs(board);
+	public boolean checkBoard(Square[][] board) {
+		return checkZeros(board) && checkRows(board) && checkColumns(board) && checkSquares(board);
 	}
 	
 	/**
@@ -61,11 +61,11 @@ public class BoardChecker{
 	 * @param board - The input Sudoku board.
 	 * @return boolean - The status for if all columns are valid. 
 	 */
-	private boolean checkColumns(SquareGUI[][] board) {	
+	private boolean checkColumns(Square[][] board) {	
 		
 		for(int i = 0; i < BOARD_WIDE; i++){	
 			
-			SquareGUI[] rowHolder = board[i];
+			Square[] rowHolder = board[i];
 			Set<Integer> numHolder = new HashSet<Integer>();
 			
 			for(int j = 0; j < rowHolder.length; j++){
@@ -77,14 +77,6 @@ public class BoardChecker{
 					return this.columnStatus;
 				}
 			}
-			
-			/*for(SquareGUI s: rowHolder){
-				if( numHolder.add(s.getNum()) == false){
-					this.errorStatus("Invalidity in: Column " + i + "| Row:  ")
-					this.columnStatus = false;
-					return this.columnStatus;
-				}
-			}*/
 		}
 		
 		return this.columnStatus;
@@ -97,8 +89,8 @@ public class BoardChecker{
 	 * @param board - The input sudoku board.
 	 * @return boolean - The status for if all rows are valid.
 	 */
-	private boolean checkRows(SquareGUI[][] board){
-		SquareGUI temp[][] = new SquareGUI[BOARD_WIDE][BOARD_TALL];
+	private boolean checkRows(Square[][] board){
+		Square temp[][] = new Square[BOARD_WIDE][BOARD_TALL];
 		
 		//Rotate the board.
 		//Swap elements.
@@ -117,14 +109,14 @@ public class BoardChecker{
 	
 	
 	/**
- 	 * This method checks if the sub-SquareGUIs of the 
+ 	 * This method checks if the sub-Squares of the 
  	 * Sudoku board are valid.
 	 * 
 	 * @param board - The input Sudoku board.
-	 * @return boolean - The status for if all sub-SquareGUIs are valid.
+	 * @return boolean - The status for if all sub-Squares are valid.
 	 * 
 	 */
-	private boolean checkSquareGUIs(SquareGUI[][] board) 
+	private boolean checkSquares(Square[][] board) 
 	{
 		int i = 0; 
 		int j = 0;
@@ -143,12 +135,12 @@ public class BoardChecker{
 		while(i < BOARD_TALL && result == true){
 			
 			/**
-			 * Obtain a subSquareGUI using this loop.
+			 * Obtain a subSquare using this loop.
 			 */
 			for(j = k; j < k+SIZE_SQUARE; j++)
 			{
 				if(numHolder.add(board[i][j].getNum()) == false){
-					System.out.println("Returned false in SquareGUI check.");
+					System.out.println("Returned false in Square check.");
 					this.SquareStatus = false;
 					return this.SquareStatus;
 				}
@@ -169,7 +161,7 @@ public class BoardChecker{
 				
 				else{
 					i = i - 2;	//Change back to column 0
-								//in SquareGUI.
+								//in Square.
 					k = k + SIZE_SQUARE;
 				}
 			}
@@ -195,7 +187,7 @@ public class BoardChecker{
 	 * @return The status for if any zeros are in the board.
 	 * 
 	 */
-	public boolean checkZeros(SquareGUI[][] board) {
+	public boolean checkZeros(Square[][] board) {
 		
 		//Check if there are any zeros on the board.
 		for(int i = 0; i < BOARD_TALL; i++){
@@ -222,7 +214,7 @@ public class BoardChecker{
 		else if ("columns".equalsIgnoreCase(statusType)){
 			result = this.columnStatus;
 		}
-		else if ("SquareGUIs".equalsIgnoreCase(statusType)){
+		else if ("square".equalsIgnoreCase(statusType)){
 			result = this.SquareStatus;
 		}
 		else if ("zeros".equalsIgnoreCase(statusType)){

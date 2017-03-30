@@ -9,11 +9,9 @@
  */
 package sudoku.controller;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,7 +26,6 @@ import javafx.scene.layout.RowConstraints;
 
 import sudoku.BoardChecker;
 import sudoku.ReadFile;
-import sudoku.exceptions.NoMoreContentException;
 import sudoku.gui.*;
 
 /**
@@ -77,7 +74,7 @@ public class BoardController implements Initializable {
 	private final double BOARD_WIDTH  = (double)(5D/7D)*PANE_WIDTH;
 	
 	/* The sudoku board. This will hold the puzzle.*/
-	private SquareGUI sudokuBoard[][] = null;
+	private Square sudokuBoard[][] = null;
 	
 	/* The ReadFile object initialised to null */
 	ReadFile rf = null;

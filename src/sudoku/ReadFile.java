@@ -10,13 +10,11 @@
 package sudoku;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import javafx.application.Platform;
 import sudoku.exceptions.NoMoreContentException;
-import sudoku.gui.SquareGUI;
+import sudoku.gui.Square;
+
 import static sudoku.controller.BoardController.BOARD_WIDE;
 import static sudoku.controller.BoardController.BOARD_TALL;
 
@@ -35,8 +33,8 @@ public class ReadFile {
 	private String tmp = null;
 	private String [] lineHolder = null;
 	
-	/** The empty Sudoku board - A 2D array of SquareGUI */
-	private SquareGUI[][] sudokuBoard = new SquareGUI[BOARD_TALL][BOARD_WIDE];
+	/** The empty Sudoku board - A 2D array of Square */
+	private Square[][] sudokuBoard = new Square[BOARD_TALL][BOARD_WIDE];
 	
 	/**
 	 * The constructor for the read file function.
@@ -118,14 +116,14 @@ public class ReadFile {
 					}
 					
 					/* Loop through each number in lineHolder 
-					 * 1. Create a new SquareGUI object for an index of the board.
+					 * 1. Create a new Square object for an index of the board.
 					 * 2. Parse the number in the String array to an Integer. 
-					 * 3. Store this in the value field of the SquareGUI object.
+					 * 3. Store this in the value field of the Square object.
 					 * 4. If this number wasn't 0 then it is a fixed non-editable
 					 * 	  field of the board. i.e. the user cannot edit this.
 					 * */
 						for(int j =0; j < lineHolder.length;j++){
-							sudokuBoard[i][j] = new SquareGUI(20,20);
+							sudokuBoard[i][j] = new Square(20,20);
 							sudokuBoard[i][j].setNum(Integer.parseInt(lineHolder[j]));
 							if(sudokuBoard[i][j].getNum()!=0){
 								sudokuBoard[i][j].setFixedStatus(true);
@@ -158,9 +156,9 @@ public class ReadFile {
 	 * This getter method returns the sudoku-board that was populated
 	 * in the constructor method.
 	 * 
-	 * @return SquareGUI[][] - The populated sudoku board.
+	 * @return Square[][] - The populated sudoku board.
 	 */
-	public SquareGUI[][] getBoard(){
+	public Square[][] getBoard(){
 		return this.sudokuBoard;
 	}
 }
