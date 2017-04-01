@@ -25,7 +25,8 @@ import static sudoku.controller.BoardController.SIZE_SQUARE;
  *	
  * @version 1.0
  */
-public class BoardChecker{
+public class BoardChecker
+{
 	
 	private boolean rowStatus;
 	private boolean columnStatus;
@@ -55,13 +56,13 @@ public class BoardChecker{
 	}
 	
 	/**
-	 * This method checks if the columns of the Sudoku board
+	 * This method checks if the rows of the Sudoku board
 	 * are valid.
 	 * 
-	 * @param board - The input Sudoku board.
-	 * @return boolean - The status for if all columns are valid. 
+	 * @param board - The input sudoku board.
+	 * @return boolean - The status for if all rows are valid.
 	 */
-	private boolean checkColumns(Square[][] board) {	
+	public boolean checkRows(Square[][] board) {	
 		
 		for(int i = 0; i < BOARD_WIDE; i++){	
 			
@@ -83,13 +84,13 @@ public class BoardChecker{
 	}
 	
 	/**
-	 * This method checks if the rows of the Sudoku board
+	 * This method checks if the columns of the Sudoku board
 	 * are valid.
 	 * 
-	 * @param board - The input sudoku board.
-	 * @return boolean - The status for if all rows are valid.
+	 * @param board - The input Sudoku board.
+	 * @return boolean - The status for if all columns are valid. 
 	 */
-	private boolean checkRows(Square[][] board){
+	public boolean checkColumns(Square[][] board){
 		Square temp[][] = new Square[BOARD_WIDE][BOARD_TALL];
 		
 		//Rotate the board.
@@ -100,7 +101,7 @@ public class BoardChecker{
 			}
 		}
 		//The rows are now columns.
-		this.rowStatus = checkColumns(temp);
+		this.rowStatus = checkRows(temp);
 		
 		setInvalidCoord(this.errorStatusColumn, this.errorStatusRow);
 		
@@ -195,7 +196,7 @@ public class BoardChecker{
 				if(board[i][j].getNum()==0)
 				{
 					setInvalidCoord(i, j);
-					this.zeroStatus = true;
+					this.zeroStatus = false;
 					return this.zeroStatus;
 				}
 			}

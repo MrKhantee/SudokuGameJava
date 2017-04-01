@@ -70,11 +70,12 @@ public class BoardCheckerTest{
         int [] incorrectLoc = {8,7};
         
 		boardChecker.checkZeros(sudokuBoard);
-		assertTrue(boardChecker.getStatus("zeros") && Arrays.equals(incorrectLoc, boardChecker.getInvalidCoord()));
+		assertTrue(!boardChecker.getStatus("zeros") && Arrays.equals(incorrectLoc, boardChecker.getInvalidCoord()));
 	}
 	
 	@Test
-	public void testCheckZeros_Negative(){
+	public void testCheckZeros_Negative()
+	{
 		
 		if(!readBoard("testZerosNegative")){
         	fail("Test-failed, the input board to testCheckZeros_Positive() could not "
@@ -85,16 +86,33 @@ public class BoardCheckerTest{
 		assertFalse(boardChecker.getStatus("zeros"));
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	
+	@Test
+	public void testCheckColumns_Positive()
+	{
+		if(!readBoard("testColumnsPositive"))
+		{
+			fail("Test-failed, the input board to testCheckZeros_Positive() could not "
+        			+ "be read.");
+		}
 		
+		int [] incorrectLoc = {3,2};
+		
+		boardChecker.checkColumns(sudokuBoard);
+		assertTrue(!boardChecker.getStatus("columns") && Arrays.equals(incorrectLoc, boardChecker.getInvalidCoord()));
+		
+	}
+	
+	@After
+	public void tearDown() throws Exception 
+	{
 		rf = null;
 		sudokuBoard = null;
 		boardChecker = null;
-	
 	}
 	
-	private boolean readBoard(String pathname){
+	private boolean readBoard(String pathname)
+	{
 		
 		//Setup Thread function.
 		Thread thread1 = new Thread() 
@@ -113,6 +131,7 @@ public class BoardCheckerTest{
 		
 		//Signal that we no longer require this
 		//thread.
+		
 		Thread.currentThread().interrupt();
 		
 		
