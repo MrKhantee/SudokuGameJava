@@ -124,10 +124,23 @@ The source for the ```javadoc``` documentation is contained in the ```docs``` fo
 The JUnit tests are located in the ```test/...``` directory.
 
 ### Board Checker Testing
+This JUnit test carries out positive and negative testing on each method in this class file.
+
+For example, the method ```checkZeros()``` in ```BoardChecker.java``` is tested as follows.
+```
+//Input a test board with a '0' element and check if the test fails.
+public void testCheckZeros_Positive(){...}
+
+//Input a test board with no-zero elements and check that the test passes.
+public void testCheckZeros_Negative(){...}
+```
+
+The same methods are replicated for the square, row and column checkers.
+
 
 ### Board Solver Testing
 
-### Future Testing
+### Future Testing Notes
 It would be desirable to use specific JavaFX test frameworks rather than relying on simple JUnit testing. As JUnit testing does not consider the UI functionality.
 
 ## **Authors**
