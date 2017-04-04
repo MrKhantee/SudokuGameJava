@@ -67,6 +67,7 @@ public class BoardCheckerTest{
         			+ "be read.");
         };
 		
+        //The correct location for the test-board to return an error.
         int [] incorrectLoc = {8,7};
         
 		boardChecker.checkZeros(sudokuBoard);
@@ -77,6 +78,7 @@ public class BoardCheckerTest{
 	public void testCheckZeros_Negative()
 	{
 		
+		//Make sure we can read the board.
 		if(!readBoard("testZerosNegative")){
         	fail("Test-failed, the input board to testCheckZeros_Positive() could not "
         			+ "be read.");
@@ -131,7 +133,6 @@ public class BoardCheckerTest{
 		
 		//Signal that we no longer require this
 		//thread.
-		
 		Thread.currentThread().interrupt();
 		
 		
