@@ -1,11 +1,20 @@
 # The Ultimate Sudoku Game (Java)
 
-
 ## **Getting Started**
+
+### What is Sudoku?
+Sudoku is a Japanese numbers game that...
+
+### Program Capabilities
+This application gives the user a simple interface to play the Sudoku game.
+
+* Users can attempt a wide variety of Sudoku boards ranging from easy to hard difficulties.
+* Users can check the validity of their solution at any stage of the game.
+* Users can choose to solve the board automatically using the in-built board solver.
 
 ### Prerequisites
 For running the application, the following is required:
-* Java JDK Version 1.8 or greater
+* Java (JDK V1.8+)
 * Administrative rights on the system
 
 To edit, compile or view the source code, the following is required:
@@ -14,7 +23,6 @@ To edit, compile or view the source code, the following is required:
 * JavaFX SceneBuilder 2.0+
 
 ## **Directory Structure**
-The project directory structure is shown below. The ```src``` folder contains all the source code and packages for the project. The ```test``` folder contains the JUnit test cases in their respective packages.
 ```
 Sudoku
 ├── src
@@ -95,7 +103,8 @@ The code contains inline documentation to help describe functionality. This can 
 // Single Line Comments
 ```
 ```
-/* Single  
+/*
+ * Single  
  * & Multi-Line
  * Comment
  */
@@ -111,7 +120,15 @@ The source for the ```javadoc``` documentation is contained in the ```docs``` fo
 .../Sudoku/docs/index.html
 ```
 
-## **Testing**
+## **JUnit Testing**
+The JUnit tests are located in the ```test/...``` directory.
+
+### Board Checker Testing
+
+### Board Solver Testing
+
+### Future Testing
+It would be desirable to use specific JavaFX test frameworks rather than relying on simple JUnit testing. As JUnit testing does not consider the UI functionality.
 
 ## **Authors**
 * Ravindra Bhadti - Version 1.0
