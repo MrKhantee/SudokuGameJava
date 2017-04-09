@@ -71,6 +71,7 @@ Sudoku
 |── docs
 |    |── ...JavaDoc Documentation...
 ```
+
 ## **Installing**
 
 
