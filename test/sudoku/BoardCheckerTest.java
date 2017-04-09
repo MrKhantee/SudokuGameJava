@@ -4,11 +4,7 @@ package sudoku;
  * Static imports
  */
 import static org.junit.Assert.*;
-import static sudoku.controller.BoardController.BOARD_TALL;
-import static sudoku.controller.BoardController.BOARD_WIDE;
-import static sudoku.controller.BoardController.SIZE_SQUARE;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
@@ -25,20 +21,14 @@ import javafx.embed.swing.JFXPanel;
 import sudoku.ReadFile;
 import sudoku.gui.Square;
 
-public class BoardCheckerTest{
+public class BoardCheckerTest
+{
 
 	
 	private ReadFile rf = null;
 	private Square[][] sudokuBoard = null;
 	private BoardChecker boardChecker = null;
-	
-	/*
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
-		//To carry out GUI Testing, 
-		//load the stage as you normally would.
-	}*/
+
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -103,6 +93,18 @@ public class BoardCheckerTest{
 		boardChecker.checkColumns(sudokuBoard);
 		assertTrue(!boardChecker.getStatus("columns") && Arrays.equals(incorrectLoc, boardChecker.getInvalidCoord()));
 		
+	}
+	
+	public void testCheckColumns_Negative()
+	{
+		if(!readBoard("testColumnsNegative"))
+		{
+			fail("Test-failed, the input board to testCheckZeros_Negative() could not "
+        			+ "be read.");
+		}
+		
+		boardChecker.checkColumns(sudokuBoard);
+		assertTrue(boardChecker.getStatus("columns"));
 	}
 	
 	@After
