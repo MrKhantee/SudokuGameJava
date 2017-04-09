@@ -64,7 +64,7 @@ Sudoku
 |    |── ...JavaDoc Documentation...
 ```
 ## **Installaing & Running**
-
+This
 ### Packaging the Program
 Do this only if **changes** have been made to the **source code** or to the current version of the application. These steps export the current project into a ```.jar``` file. There are then 2 ways to run it.
 
